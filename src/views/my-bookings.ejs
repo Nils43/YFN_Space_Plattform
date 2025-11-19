@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8"/>
+  <title><%= title || 'Meine Buchungen' %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="/styles.css"/>
+</head>
+<body>
+  <header class="brand">
+    <div class="brand-left">
+      <img src="/YFN.svg" alt="YFN" class="logo">
+      <h2>Young Founders Network</h2>
+    </div>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/resources">Ressourcen</a>
+      <a href="/bookings/new">Jetzt buchen</a>
+      <a href="/me/bookings" class="active">Meine Buchungen</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Meine Buchungen <%= name ? '('+name+')' : '' %></h1>
+    <% if (!bookings || bookings.length === 0) { %>
+      <p>Keine Buchungen gefunden.</p>
+    <% } %>
+    <ul class="list">
+      <% (bookings || []).forEach(b => { %>
+        <li>
+          <strong><%= b.resource_name %></strong> — <%= b.resource_type %><br>
+          <small><%= new Date(b.start_at).toLocaleString() %> bis <%= new Date(b.end_at).toLocaleString() %></small>
+        </li>
+      <% }) %>
+    </ul>
+  </main>
+
+  <footer class="footer">© 2025 YFN — DeskHub</footer>
+</body>
+</html>

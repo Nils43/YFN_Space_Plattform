@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+  
+    
+  </style>
+</head>
+<body>
+    
+  <div class="brand">
+    <div class="brand-left">
+      <img src="YFN.svg" alt="Young Founders Network Logo" width="100">
+      <div class="name">
+      <h2>Young</h2>
+      <h2> Founders</h2>
+      <h2>Network</h2>
+    </div>
+  </div>
+    <nav class="nav">
+      <a href="https://www.youngfounders.network">Community</a>
+      <a href="https://luma.com/calendar/manage/cal-c9CVdKRbXTwUE0q">Events</a>
+      <a href="mailto:nils.heck@youngfounders.network">Kontakt</a>
+    </nav>
+  </div>
+  
+    <body>
+      <div class="partner">
+        <h2>Unsere Partner</h2>
+        <ul class="logos">
+          <li><img src="Code.png" alt="Code University of Applied Science"></li>
+          <li><img src="Delta.png" alt="Delta Campus"></li>
+        </ul>
+      </div>
+    </body>
+
+    <!DOCTYPE html>
+    <html lang="de">
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>DeskHub – Zwei Boxen</title>
+      <link rel="stylesheet" href="styles.css" />
+
+    </head>
+    <body>
+    
+      <section class="row">
+     
+        <div class="card">
+          <h2>Jetzt buchen</h2>
+          <h3>Buche direkt deinen Tisch und arbeite effizient und effektiv in einem YFN Space</h3>
+        
+          <form method="post" action="/bookings" class="form booking-form">
+            <div class="field">
+              <label for="bf-name">Dein Name</label>
+              <input id="bf-name" name="user_name" required>
+            </div>
+        
+            <div class="field">
+              <label for="bf-resource">Ressource</label>
+              <select id="bf-resource" name="resource_id" required>
+                <option value="1">Tisch 1</option>
+                <option value="2">Tisch 2</option>
+                <option value="3">Tisch 3</option>
+                <option value="4">Tisch 4</option>
+              </select>
+            </div>
+        
+            <div class="field two-col">
+              <div>
+                <label for="bf-start">Start</label>
+                <input id="bf-start" type="datetime-local" name="start_at" required>
+              </div>
+              <div>
+                <label for="bf-end">Ende</label>
+                <input id="bf-end" type="datetime-local" name="end_at" required>
+              </div>
+            </div>
+        
+            <button type="submit" class="btn btn-primary w-full">Jetzt buchen</button>
+        
+
+          </form>
+        </div>
+        
+        
+    
+      
+        <div class="card">
+          <h2>Kalender</h2>
+    
+          <div class="calendar">
+          
+            <div class="legend">
+              <span class="chip"><span class="dot dot-free"></span> frei</span>
+              <span class="chip"><span class="dot dot-busy"></span> belegt</span>
+            </div>
+    
+          
+            <div class="week-grid">
+           
+              <div class="day-col">
+                <div class="day-label day-label--focus">Mo</div>
+                <div class="slot free"></div>
+                <div class="slot busy"></div>
+                <div class="slot free"></div>
+                <div class="slot busy"></div>
+                <div class="slot free"></div>
+                <div class="slot busy"></div>
+                <div class="slot free"></div>
+                <div class="slot free"></div>
+                <div class="slot busy"></div>
+                <div class="slot free"></div>
+                <div class="slot busy"></div>
+                <div class="slot free"></div>
+              </div>
+    
+           
+              <div class="day-col">
+                <div class="day-label">Di</div>
+                <div class="slot busy"></div><div class="slot busy"></div><div class="slot free"></div>
+                <div class="slot free"></div><div class="slot busy"></div><div class="slot free"></div>
+                <div class="slot free"></div><div class="slot busy"></div><div class="slot free"></div>
+                <div class="slot busy"></div><div class="slot free"></div><div class="slot free"></div>
+              </div>
+    
+              
+              <div class="day-col">
+                <div class="day-label">Mi</div>
+                <div class="slot free"></div><div class="slot busy"></div><div class="slot busy"></div>
+                <div class="slot free"></div><div class="slot free"></div><div class="slot free"></div>
+                <div class="slot busy"></div><div class="slot busy"></div><div class="slot free"></div>
+                <div class="slot free"></div><div class="slot busy"></div><div class="slot free"></div>
+              </div>
+    
+            
+              <div class="day-col">
+                <div class="day-label">Do</div>
+                <div class="slot busy"></div><div class="slot free"></div><div class="slot free"></div>
+                <div class="slot busy"></div><div class="slot free"></div><div class="slot busy"></div>
+                <div class="slot free"></div><div class="slot free"></div><div class="slot busy"></div>
+                <div class="slot busy"></div><div class="slot free"></div><div class="slot free"></div>
+              </div>
+    
+         
+              <div class="day-col">
+                <div class="day-label">Fr</div>
+                <div class="slot free"></div><div class="slot free"></div><div class="slot busy"></div>
+                <div class="slot free"></div><div class="slot busy"></div><div class="slot free"></div>
+                <div class="slot busy"></div><div class="slot free"></div><div class="slot free"></div>
+                <div class="slot busy"></div><div class="slot free"></div><div class="slot busy"></div>
+              </div>
+    
+             
+              <div class="day-col">
+                <div class="day-label">Sa</div>
+                <div class="slot free"></div><div class="slot free"></div><div class="slot free"></div>
+                <div class="slot busy"></div><div class="slot busy"></div><div class="slot free"></div>
+                <div class="slot free"></div><div class="slot busy"></div><div class="slot busy"></div>
+                <div class="slot free"></div><div class="slot free"></div><div class="slot free"></div>
+              </div>
+    
+            
+              <div class="day-col">
+                <div class="day-label">So</div>
+                <div class="slot free"></div><div class="slot busy"></div><div class="slot free"></div>
+                <div class="slot free"></div><div class="slot busy"></div><div class="slot busy"></div>
+                <div class="slot free"></div><div class="slot free"></div><div class="slot busy"></div>
+                <div class="slot free"></div><div class="slot free"></div><div class="slot busy"></div>
+              </div>
+    
+            </div>
+          </div>
+        </div>
+      </section>
+    
+    </body>
+    </html>
+    
+
+    <div class="benefits">
+      <h2>Benefits</h2>
+    
+      <ul class="benefit-list">
+        <li class="benefit-item">
+          <span class="material-icons icon-xl" aria-hidden="true">shield</span>
+          <h3>Nur für YFN‑Member</h3>
+        </li>
+    
+        <li class="benefit-item">
+          <span class="material-icons icon-xl" aria-hidden="true">calendar_today</span>
+          <h3>Kalender‑Export</h3>
+        </li>
+    
+        <li class="benefit-item">
+          <span class="material-icons icon-xl" aria-hidden="true">chair_alt</span>
+          <h3>11 Plätze</h3>
+        </li>
+      </ul>
+    </div>
+    
+
+
+  </body>
+  
+  
+</html>
+
+<script>
+  (function () {
+    const p = new URLSearchParams(location.search);
+    const ok = p.get('ok');
+    const err = p.get('error');
+    if (ok) showToast('Buchung erfolgreich!', 'success');
+    if (err === 'belegt') showToast('Zeitfenster ist belegt. Bitte anderen Slot wählen.', 'error');
+    if (err === 'invalid_time') showToast('Startzeit muss vor Endzeit liegen.', 'error');
+    if (err === 'missing') showToast('Bitte alle Felder ausfüllen.', 'error');
+    if (err === 'server') showToast('Interner Fehler. Bitte später erneut versuchen.', 'error');
+
+    function showToast(text, type) {
+      const t = document.createElement('div');
+      t.className = 'toast ' + (type || 'info');
+      t.textContent = text;
+      document.body.appendChild(t);
+      setTimeout(() => t.classList.add('in'), 10);
+      setTimeout(() => t.classList.remove('in'), 3200);
+      setTimeout(() => t.remove(), 3600);
+    }
+  })();
+</script>

@@ -1,0 +1,382 @@
+
+.partner {
+    margin: 10px;                 
+    background: #ffffff;          
+    border: 1px solid #e2e1e1;    
+    border-radius: 20px;            
+    padding: 16px;                
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.08);
+  }
+  
+
+  .partner h2 {
+    
+    margin: 0 0 12px;               
+    font-size: 20px;
+    line-height: 1.2;
+  }
+  
+
+  .logos {
+    display: flex;                 
+    justify-content: center;        
+    align-items: center;           
+    gap: 100px;                      
+    list-style: none;            
+    margin: 0;                     
+    padding: 0;
+    flex-wrap: wrap;                
+  }
+  
+
+  .logos li {
+    display: flex;                  
+    align-items: center;
+  }
+  
+
+  .logos img {
+    display: block;                 
+    height: 60px;                 
+    width: auto;
+    filter: saturate(0.95);        
+  }
+  
+ 
+  .logos img:hover {
+    transform: translateY(-1px);
+    transition: transform 120ms ease;
+  }
+  
+
+  @media (max-width: 640px) {
+    .logos { gap: 16px; }         
+    .logos img { height: 50px; }   
+  }
+  
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;                 /* Grundabstand zwischen Gruppen */
+    padding: 16px;
+    background: #fff;
+    border: 1px solid #e2e1e1;
+    border-radius: 20px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.08);
+  }
+  
+  /* Gruppe links: Logo + Titel */
+  .brand-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;                 /* Abstand zwischen Logo und Titel */
+  }
+  
+  /* Navigation nach rechts schieben und Links stylen */
+  .nav {
+    margin-left: auto;         /* erzeugt “genug Space” zwischen links und rechts */
+    display: flex;
+    align-items: center;
+    gap: 18px;                 /* Abstand zwischen den Links */
+  }
+  .nav a {
+    color: #0B0F14;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 8px 6px;          /* größere Klickfläche */
+    border-radius: 8px;
+  }
+  .nav a:hover {
+    background: #F1F3F5;
+  }
+  
+  /* Optional: Titel kompakter neben Logo */
+  .brand h2 {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.2;
+  }
+  
+  
+
+  .benefits {
+    margin: 10px;                 
+    background: #ffffff;          
+    border: 1px solid #e2e1e1;    
+    border-radius: 20px;            
+    padding: 16px;                
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.08);
+  }
+
+  :root{
+    --bg:#F7F8FA;
+    --text:#0B0F14;
+    --muted:#5E697B;
+    --border:#E6E8EE;
+    --primary:#FFED00;     
+    --success:#19B891;      
+    --occupied:#AAB2C0;     
+    --radius:12px;
+    --shadow:0 10px 30px rgba(31,41,55,0.08);
+    --gap:16px;
+    --slot-h:24px;         
+  }
+  
+  *{box-sizing:border-box}
+  body{margin:0; font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--text)}
+  
+
+  .row{
+    display:flex;
+    gap:var(--gap);
+    align-items:flex-start;
+    flex-wrap:wrap;
+    padding: var(--gap);
+  }
+  
+
+  .card{
+    height:500px;
+    flex:1 1 320px;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:16px;
+    box-shadow:var(--shadow);
+  }
+  .card h2{margin:0 0 8px; font-size:20px; line-height:1.2}
+  .card h3{margin:0 0 12px; font-weight:500; color:var(--muted)}
+  
+
+  .btn{
+    display:inline-block;
+    padding:10px 16px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:#fff;
+    color:var(--text);
+    font-weight:600;
+    text-decoration:none;
+    cursor:pointer;
+    transition:filter 120ms ease, transform 120ms ease, box-shadow 120ms ease;
+  }
+  .btn:hover{ filter:brightness(0.98); transform:translateY(-1px); }
+  .btn:active{ transform:translateY(0); }
+  
+  .btn-primary{
+    background:var(--primary);
+    color:var(--text);
+    border-color: rgba(255,237,0,0.5);
+    box-shadow: 0 8px 20px rgba(255,237,0,0.25);
+  }
+  
+ 
+  .calendar{ margin:16px 0; }
+  
+
+  .legend{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    margin-bottom:8px;
+    color:var(--muted);
+    font-size:14px;
+  }
+  .chip{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    border:1px solid var(--border);
+    border-radius:999px;
+    padding:6px 10px;
+    background:#fff;
+  }
+  .dot{
+    width:10px; height:10px; border-radius:999px; display:inline-block;
+  }
+  .dot-free{ background: var(--success); }
+  .dot-busy{ background: var(--occupied); }
+  
+ 
+  .week-grid{
+    display:grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap:8px;
+  }
+  
+
+  .day-col{
+    display:grid;
+    grid-template-rows: 24px repeat(12, var(--slot-h));
+    gap:6px;
+  }
+  
+
+  .day-label{
+    text-align:center;
+    font-weight:600;
+    border-bottom:1px solid var(--border);
+    padding-bottom:4px;
+  }
+  .day-label--focus{
+    border-bottom:2px solid var(--primary);
+  }
+  
+
+  .slot{
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:#fff;
+  }
+  .slot.free{
+    background: rgba(25,184,145,0.12);
+    border-color: rgba(25,184,145,0.35);
+  }
+  .slot.busy{
+    background: rgba(170,178,192,0.18);
+    border-color: rgba(170,178,192,0.45);
+  }
+  
+
+  @media (max-width: 900px){
+    .row{ padding: 12px; }
+  }
+  @media (max-width: 760px){
+    .week-grid{ grid-template-columns: repeat(3, 1fr); } /* 3 Spalten pro Reihe */
+  }
+  @media (max-width: 520px){
+    .week-grid{ grid-template-columns: repeat(2, 1fr); }
+    :root{ --slot-h: 20px; }
+  }
+  
+  .benefits h2{
+    margin:0 0 12px;
+    font-size:20px;
+    line-height:1.2;
+  }
+  
+
+  .benefit-list{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:var(--gap);
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  
+  .benefit-item{
+    
+    display:flex;
+    flex-direction:column;
+    align-items:center;   
+    gap:8px;
+    text-align:center;
+    padding:10px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:#fff;
+  }
+  
+  
+  .benefit-icon{
+    width:200px;
+    height:200px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:100px;       
+    box-shadow: var(--shadow);
+  }
+  .material-icons { 
+    font-size: 100px;
+    vertical-align: middle;  /* bessere Ausrichtung neben Text */
+    color: #0B0F14;          /* Iconfarbe */
+  }
+  .icon-lg { font-size: 32px; }
+  .icon-xl { font-size: 80px; } /* 2000px ist zu groß – 48/64/80px sind praxisnah */
+  
+
+  .benefit-item:hover .benefit-icon{
+    box-shadow: 0 0 0 2px rgba(255,237,0,0.3), var(--shadow);
+    transform: translateY(-1px);
+    transition: all 120ms ease;
+  }
+  
+  .benefit-item h3{
+    margin:0;
+    font-size:16px;
+    color:var(--text);
+  }
+
+  /* Card-Subline */
+.card-sub {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* Formular in Cards */
+.booking-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* Felder */
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 14px;
+  color: #3D4756;
+}
+
+.field input,
+.field select {
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  width: 100%;
+}
+
+/* Zwei-Spalten für Start/Ende (responsive) */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 640px) {
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Volle Breite für den Button, wenn gewünscht */
+.w-full { width: 100%; }
+
+  
+
+  @media (max-width: 640px){
+    .benefit-list{ grid-template-columns: 1fr; }
+  }
+
+
+  .toast {
+    position: fixed; left: 50%; top: 16px; transform: translateX(-50%) translateY(-10px);
+    background: #fff; color: #0B0F14; border: 1px solid #E6E8EE; border-radius: 10px;
+    padding: 10px 14px; box-shadow: 0 10px 30px rgba(31,41,55,0.08);
+    opacity: 0; transition: opacity 160ms ease, transform 160ms ease;
+    z-index: 9999;
+  }
+  .toast.in { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.success { border-color: rgba(25,184,145,0.35); box-shadow: 0 10px 30px rgba(25,184,145,0.12); }
+  .toast.error { border-color: rgba(220,53,69,0.35); box-shadow: 0 10px 30px rgba(220,53,69,0.12); }
+  
