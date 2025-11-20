@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8"/>
+  <title><%= title || 'Kalender' %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="/styles.css"/>
+</head>
+<body>
+  <header class="brand">
+    <div class="brand-left">
+      <img src="/YFN.svg" alt="YFN" class="logo">
+      <h2>Young Founders Network</h2>
+    </div>
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="/resources">Ressourcen</a>
+      <a href="/calendar?resource_id=<%= resourceId %>" class="active">Kalender</a>
+      <a href="/me/bookings">Meine Buchungen</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="card">
+      <h2>Kalender</h2>
+
+      <div class="calendar">
+        <div class="legend">
+          <span class="chip"><span class="dot dot-free"></span> frei</span>
+          <span class="chip"><span class="dot dot-busy"></span> belegt</span>
+        </div>
+
+        <div class="week-grid">
+          <% week.forEach(col => { %>
+            <div class="day-col">
+              <div class="day-label <%= col.dayLabel==='Mo' ? 'day-label--focus' : '' %>"><%= col.dayLabel %></div>
+              <% col.slots.forEach(s => { %>
+                <div
+                  class="slot <%= s.busy ? 'busy' : 'free' %>"
+                  data-resource-id="<%= s.resource_id %>"
+                  data-start="<%= s.start_at %>"
+                  data-end="<%= s.end_at %>"
+                  title="<%= s.start_at.slice(11,16) %>–<%= s.end_at.slice(11,16) %>">
+                </div>
+              <% }) %>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+  
+    function showToast(text, type) {
+      const t = document.createElement('div');
+      t.className = 'toast ' + (type || 'info');
+      t.textContent = text;
+      document.body.appendChild(t);
+      setTimeout(() => t.classList.add('in'), 10);
+      setTimeout(() => t.classList.remove('in'), 3200);
+      setTimeout(() => t.remove(), 3600);
+    }
+
+    async function bookSlot({ user_name, resource_id, start_at, end_at }) {
+      const body = new URLSearchParams({ user_name, resource_id, start_at, end_at }).toString();
+      const res = await fetch('/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body
+      });
+      return res;
+    }
+
+    const DEFAULT_USER_NAME = 'Guest'; 
+
+    document.addEventListener('click', async (e) => {
+      const slot = e.target.closest('.slot');
+      if (!slot) return;
+      if (slot.classList.contains('busy')) {
+        showToast('Slot ist bereits belegt.', 'error');
+        return;
+      }
+      const resource_id = slot.dataset.resourceId;
+      const start_at = slot.dataset.start;
+      const end_at = slot.dataset.end;
+
+      if (!resource_id || !start_at || !end_at) {
+        showToast('Slot-Daten fehlen.', 'error');
+        return;
+      }
+
+      slot.style.pointerEvents = 'none';
+      try {
+        const res = await bookSlot({ user_name: DEFAULT_USER_NAME, resource_id, start_at, end_at });
+        if (res.ok) {
+          slot.classList.remove('free');
+          slot.classList.add('busy');
+          showToast('Buchung erfolgreich!', 'success');
+        } else if (res.status === 409) {
+          showToast('Zeitfenster ist belegt.', 'error');
+        } else {
+          const text = await res.text();
+          showToast('Fehler: ' + (text || 'Unbekannt'), 'error');
+        }
+      } catch {
+        showToast('Netzwerkfehler.', 'error');
+      } finally {
+        slot.style.pointerEvents = '';
+      }
+    });
+  </script>
+</body>
+</html>

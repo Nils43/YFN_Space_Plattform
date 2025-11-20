@@ -10,7 +10,6 @@
   
 
   .partner h2 {
-    
     margin: 0 0 12px;               
     font-size: 20px;
     line-height: 1.2;
@@ -57,7 +56,7 @@
   .brand {
     display: flex;
     align-items: center;
-    gap: 16px;                 /* Grundabstand zwischen Gruppen */
+    gap: 16px;                
     padding: 16px;
     background: #fff;
     border: 1px solid #e2e1e1;
@@ -65,40 +64,38 @@
     box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 10px 30px rgba(0,0,0,0.08);
   }
   
-  /* Gruppe links: Logo + Titel */
+
   .brand-left {
     display: flex;
     align-items: center;
-    gap: 12px;                 /* Abstand zwischen Logo und Titel */
+    gap: 12px;              
   }
   
-  /* Navigation nach rechts schieben und Links stylen */
+
   .nav {
-    margin-left: auto;         /* erzeugt “genug Space” zwischen links und rechts */
+    margin-left: auto;       
     display: flex;
     align-items: center;
-    gap: 18px;                 /* Abstand zwischen den Links */
+    gap: 18px;              
   }
   .nav a {
     color: #0B0F14;
     text-decoration: none;
     font-weight: 600;
-    padding: 8px 6px;          /* größere Klickfläche */
+    padding: 8px 6px;        
     border-radius: 8px;
   }
   .nav a:hover {
     background: #F1F3F5;
   }
   
-  /* Optional: Titel kompakter neben Logo */
+
   .brand h2 {
     margin: 0;
     font-size: 20px;
     line-height: 1.2;
   }
   
-  
-
   .benefits {
     margin: 10px;                 
     background: #ffffff;          
@@ -170,9 +167,6 @@
     box-shadow: 0 8px 20px rgba(255,237,0,0.25);
   }
   
- 
-  .calendar{ margin:16px 0; }
-  
 
   .legend{
     display:flex;
@@ -242,7 +236,7 @@
     .row{ padding: 12px; }
   }
   @media (max-width: 760px){
-    .week-grid{ grid-template-columns: repeat(3, 1fr); } /* 3 Spalten pro Reihe */
+    .week-grid{ grid-template-columns: repeat(3, 1fr); }
   }
   @media (max-width: 520px){
     .week-grid{ grid-template-columns: repeat(2, 1fr); }
@@ -293,11 +287,11 @@
   }
   .material-icons { 
     font-size: 100px;
-    vertical-align: middle;  /* bessere Ausrichtung neben Text */
-    color: #0B0F14;          /* Iconfarbe */
+    vertical-align: middle;  
+    color: #0B0F14;         
   }
   .icon-lg { font-size: 32px; }
-  .icon-xl { font-size: 80px; } /* 2000px ist zu groß – 48/64/80px sind praxisnah */
+  .icon-xl { font-size: 80px; } 
   
 
   .benefit-item:hover .benefit-icon{
@@ -312,21 +306,19 @@
     color:var(--text);
   }
 
-  /* Card-Subline */
 .card-sub {
   margin: 0 0 12px;
   color: var(--muted);
   font-weight: 500;
 }
 
-/* Formular in Cards */
 .booking-form {
   display: grid;
   gap: 12px;
   margin-top: 12px;
 }
 
-/* Felder */
+
 .field {
   display: grid;
   gap: 6px;
@@ -346,7 +338,6 @@
   width: 100%;
 }
 
-/* Zwei-Spalten für Start/Ende (responsive) */
 .two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -359,7 +350,6 @@
   }
 }
 
-/* Volle Breite für den Button, wenn gewünscht */
 .w-full { width: 100%; }
 
   
@@ -380,3 +370,38 @@
   .toast.success { border-color: rgba(25,184,145,0.35); box-shadow: 0 10px 30px rgba(25,184,145,0.12); }
   .toast.error { border-color: rgba(220,53,69,0.35); box-shadow: 0 10px 30px rgba(220,53,69,0.12); }
   
+  .calendar { display: grid; gap: 12px; position: relative; }
+.legend { display:flex; gap:12px; align-items:center; margin-bottom:8px; }
+.chip { display:inline-flex; gap:6px; align-items:center; background:#fff; border:1px solid #E6E8EE; border-radius:999px; padding:4px 8px; }
+.dot { display:inline-block; width:10px; height:10px; border-radius:50%; }
+.dot-free { background:#2ecc71; }
+.dot-busy { background:#e74c3c; }
+
+.week-grid { display:grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+.day-col { display:grid; grid-template-rows: auto; gap: 6px; }
+.day-label { font-weight:700; margin-bottom:6px; }
+.day-label--focus { color:#0B0F14; }
+.slot { height:20px; border-radius:6px; border:1px solid #E6E8EE; background:#fff; }
+.slot.free { background: #ECFDF5; border-color: #C6F6D5; }
+.slot.busy { background: #FDE8E8; border-color: #F5C2C7; }
+
+@media (max-width: 900px) { .week-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 640px) { .week-grid { grid-template-columns: repeat(2, 1fr); } }
+
+
+.slot-tooltip {
+  position: absolute;
+  pointer-events: none;
+  min-width: 180px;
+  background: #fff;
+  border: 1px solid #E6E8EE;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(31,41,55,0.12);
+  padding: 10px 12px;
+  z-index: 9999;
+}
+.slot-tooltip__time { font-weight: 700; margin-bottom: 6px; }
+.slot-tooltip__list { display: grid; gap: 6px; }
+.slot-tooltip__item { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; }
+.slot-tooltip__item .status-free { color: #1e7e34; }
+.slot-tooltip__item .status-busy { color: #c82333; }

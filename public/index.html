@@ -11,7 +11,6 @@
     
   </style>
 </head>
-<body>
     
   <div class="brand">
     <div class="brand-left">
@@ -29,7 +28,7 @@
     </nav>
   </div>
   
-    <body>
+    
       <div class="partner">
         <h2>Unsere Partner</h2>
         <ul class="logos">
@@ -39,17 +38,7 @@
       </div>
     </body>
 
-    <!DOCTYPE html>
-    <html lang="de">
-    <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>DeskHub – Zwei Boxen</title>
-      <link rel="stylesheet" href="styles.css" />
-
-    </head>
-    <body>
-    
+ 
       <section class="row">
      
         <div class="card">
@@ -89,101 +78,24 @@
           </form>
         </div>
         
-        
-    
-      
         <div class="card">
-          <h2>Kalender</h2>
-    
+          <h2>Kalender <small id="weekLabel" style="font-weight:500;color:#5E697B;"></small></h2>
           <div class="calendar">
-          
             <div class="legend">
               <span class="chip"><span class="dot dot-free"></span> frei</span>
               <span class="chip"><span class="dot dot-busy"></span> belegt</span>
             </div>
-    
-          
-            <div class="week-grid">
-           
-              <div class="day-col">
-                <div class="day-label day-label--focus">Mo</div>
-                <div class="slot free"></div>
-                <div class="slot busy"></div>
-                <div class="slot free"></div>
-                <div class="slot busy"></div>
-                <div class="slot free"></div>
-                <div class="slot busy"></div>
-                <div class="slot free"></div>
-                <div class="slot free"></div>
-                <div class="slot busy"></div>
-                <div class="slot free"></div>
-                <div class="slot busy"></div>
-                <div class="slot free"></div>
-              </div>
-    
-           
-              <div class="day-col">
-                <div class="day-label">Di</div>
-                <div class="slot busy"></div><div class="slot busy"></div><div class="slot free"></div>
-                <div class="slot free"></div><div class="slot busy"></div><div class="slot free"></div>
-                <div class="slot free"></div><div class="slot busy"></div><div class="slot free"></div>
-                <div class="slot busy"></div><div class="slot free"></div><div class="slot free"></div>
-              </div>
-    
-              
-              <div class="day-col">
-                <div class="day-label">Mi</div>
-                <div class="slot free"></div><div class="slot busy"></div><div class="slot busy"></div>
-                <div class="slot free"></div><div class="slot free"></div><div class="slot free"></div>
-                <div class="slot busy"></div><div class="slot busy"></div><div class="slot free"></div>
-                <div class="slot free"></div><div class="slot busy"></div><div class="slot free"></div>
-              </div>
-    
-            
-              <div class="day-col">
-                <div class="day-label">Do</div>
-                <div class="slot busy"></div><div class="slot free"></div><div class="slot free"></div>
-                <div class="slot busy"></div><div class="slot free"></div><div class="slot busy"></div>
-                <div class="slot free"></div><div class="slot free"></div><div class="slot busy"></div>
-                <div class="slot busy"></div><div class="slot free"></div><div class="slot free"></div>
-              </div>
-    
-         
-              <div class="day-col">
-                <div class="day-label">Fr</div>
-                <div class="slot free"></div><div class="slot free"></div><div class="slot busy"></div>
-                <div class="slot free"></div><div class="slot busy"></div><div class="slot free"></div>
-                <div class="slot busy"></div><div class="slot free"></div><div class="slot free"></div>
-                <div class="slot busy"></div><div class="slot free"></div><div class="slot busy"></div>
-              </div>
-    
-             
-              <div class="day-col">
-                <div class="day-label">Sa</div>
-                <div class="slot free"></div><div class="slot free"></div><div class="slot free"></div>
-                <div class="slot busy"></div><div class="slot busy"></div><div class="slot free"></div>
-                <div class="slot free"></div><div class="slot busy"></div><div class="slot busy"></div>
-                <div class="slot free"></div><div class="slot free"></div><div class="slot free"></div>
-              </div>
-    
-            
-              <div class="day-col">
-                <div class="day-label">So</div>
-                <div class="slot free"></div><div class="slot busy"></div><div class="slot free"></div>
-                <div class="slot free"></div><div class="slot busy"></div><div class="slot busy"></div>
-                <div class="slot free"></div><div class="slot free"></div><div class="slot busy"></div>
-                <div class="slot free"></div><div class="slot free"></div><div class="slot busy"></div>
-              </div>
-    
+        
+            <div id="weekGrid" class="week-grid"></div>
+          </section>
+        
+            <div id="slotTooltip" class="slot-tooltip" hidden>
+              <div class="slot-tooltip__time" id="tipTime"></div>
+              <div class="slot-tooltip__list" id="tipList"></div>
             </div>
           </div>
         </div>
-      </section>
-    
-    </body>
-    </html>
-    
-
+        
     <div class="benefits">
       <h2>Benefits</h2>
     
@@ -204,12 +116,7 @@
         </li>
       </ul>
     </div>
-    
-
-
   </body>
-  
-  
 </html>
 
 <script>
@@ -233,4 +140,169 @@
       setTimeout(() => t.remove(), 3600);
     }
   })();
+</script>
+
+<script>
+
+  const fmt2 = n => String(n).padStart(2,'0');
+  const overlap = (aStart, aEnd, bStart, bEnd) => aStart < bEnd && bStart < aEnd;
+
+  let CAL = null; 
+
+  async function loadCalendar(resourceIds = [1,2,3,4]) {
+    const q = encodeURIComponent(resourceIds.join(','));
+    const res = await fetch(`/api/calendar?resource_ids=${q}`);
+    if (!res.ok) throw new Error('Kalender konnte nicht geladen werden');
+    CAL = await res.json();
+
+    const wl = document.getElementById('weekLabel');
+    if (wl) wl.textContent = `(${CAL.weekStart})`;
+
+    renderWeekGrid();
+    attachHoverHandlers();
+  }
+
+  function renderWeekGrid() {
+    const grid = document.getElementById('weekGrid');
+    grid.innerHTML = '';
+    const days = ['Mo','Di','Mi','Do','Fr','Sa','So'];
+
+  
+    const base = new Date(CAL.weekStart + 'T00:00:00');
+
+    for (let d = 0; d < 7; d++) {
+      const dayCol = document.createElement('div');
+      dayCol.className = 'day-col';
+
+      const label = document.createElement('div');
+      label.className = 'day-label' + (d === 0 ? ' day-label--focus' : '');
+      label.textContent = days[d];
+      dayCol.appendChild(label);
+
+      const dayDate = new Date(base);
+      dayDate.setDate(base.getDate() + d);
+
+      for (let h = CAL.startHour; h < CAL.endHour; h++) {
+        for (let m = 0; m < 60; m += CAL.stepMin) {
+          const start = new Date(dayDate);
+          start.setHours(h, m, 0, 0);
+          const end = new Date(start);
+          end.setMinutes(end.getMinutes() + CAL.stepMin);
+
+    
+          const allBusy = CAL.resourceIds.every(rid => isBusyFor(rid, start, end));
+
+          const slot = document.createElement('div');
+          slot.className = 'slot ' + (allBusy ? 'busy' : 'free');
+          slot.dataset.start = start.toISOString();
+          slot.dataset.end = end.toISOString();
+          slot.dataset.label = `${fmt2(start.getHours())}:${fmt2(start.getMinutes())}–${fmt2(end.getHours())}:${fmt2(end.getMinutes())}`;
+          dayCol.appendChild(slot);
+        }
+      }
+      grid.appendChild(dayCol);
+    }
+  }
+
+  function isBusyFor(resourceId, start, end) {
+    const list = CAL.busyByResource?.[resourceId] || [];
+  
+    if (list.length && typeof list[0].start === 'string') {
+      for (let i = 0; i < list.length; i++) {
+        list[i].start = new Date(list[i].start);
+        list[i].end = new Date(list[i].end);
+      }
+    }
+    return list.some(intv => overlap(start, end, intv.start, intv.end));
+  }
+
+
+  const tooltip = document.getElementById('slotTooltip');
+  const tipTime = document.getElementById('tipTime');
+  const tipList = document.getElementById('tipList');
+
+  function positionTooltipNearSlot(slot, tooltip) {
+
+  const CAL_CONTAINER = document.querySelector('.calendar');
+  const calRect = CAL_CONTAINER.getBoundingClientRect();
+  const slotRect = slot.getBoundingClientRect();
+
+  const offsetX = 10; 
+  const offsetY = 6;  
+
+
+  let left = calRect.left + window.scrollX + (slotRect.right - calRect.left) + offsetX;
+  let top  = calRect.top  + window.scrollY + (slotRect.top  - calRect.top) + offsetY;
+
+
+  tooltip.style.left = left + 'px';
+  tooltip.style.top  = top  + 'px';
+
+  const tipRect = tooltip.getBoundingClientRect();
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+
+
+  if (tipRect.right > vw - 8) {
+    left = calRect.left + window.scrollX + (slotRect.left - calRect.left) - tipRect.width - offsetX;
+  }
+
+  if (tipRect.bottom > vh - 8) {
+    top = calRect.top + window.scrollY + (slotRect.bottom - calRect.top) - tipRect.height - offsetY;
+  }
+
+  tooltip.style.left = Math.max(window.scrollX + 8, left) + 'px';
+  tooltip.style.top  = Math.max(window.scrollY + 8, top)  + 'px';
+}
+
+
+  function attachHoverHandlers() {
+    const slots = document.querySelectorAll('.slot');
+   
+
+    slots.forEach(slot => {
+      slot.addEventListener('mouseenter', (e) => {
+        const start = new Date(slot.dataset.start);
+        const end = new Date(slot.dataset.end);
+
+        tipTime.textContent = slot.dataset.label;
+        tipList.innerHTML = '';
+
+        CAL.resourceIds.forEach(rid => {
+          const busy = isBusyFor(rid, start, end);
+          const item = document.createElement('div');
+          item.className = 'slot-tooltip__item';
+          item.innerHTML = `<div>Tisch ${rid}</div><div class="${busy ? 'status-busy' : 'status-free'}">${busy ? 'belegt' : 'frei'}</div>`;
+          tipList.appendChild(item);
+        });
+
+        const offset = 12;
+        tooltip.style.left = (e.pageX + offset) + 'px';
+        tooltip.style.top  = (e.pageY + offset) + 'px';
+        tooltip.hidden = false;
+      });
+
+      slot.addEventListener('mousemove', (e) => {
+        if (tooltip.hidden) return;
+        const offset = 12;
+        tooltip.style.left = (e.pageX + offset) + 'px';
+        tooltip.style.top  = (e.pageY + offset) + 'px';
+      });
+
+      slot.addEventListener('mouseleave', () => {
+        tooltip.hidden = true;
+      });
+    });
+    
+
+
+   
+    const calendar = document.querySelector('.calendar');
+    calendar.addEventListener('mouseleave', () => { tooltip.hidden = true; });
+  }
+
+  
+  loadCalendar([1,2,3,4]).catch(err => {
+    console.error('loadCalendar error:', err);
+  });
 </script>
